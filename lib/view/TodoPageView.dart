@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'ToDoItemView.dart';
-
 class TodoPageView extends StatefulWidget {
   const TodoPageView({super.key});
 
@@ -49,12 +47,25 @@ class _TodoPageViewState extends State<TodoPageView> {
   }
 
   Future<void> _deleteToDo(String todoID) async {
-    await _firestore
+    final todoDoc = _firestore
         .collection("users")
         .doc(_currentUser!.uid)
-        .collection(todoID)
-        .doc(todoID)
-        .delete();
+        .collection("todos")
+        .doc(todoID);
+
+    final todoData = (await todoDoc.get()).data() as Map<String, dynamic>;
+
+    await todoDoc.delete();
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("할 일이 삭제되었습니다!"),
+      action: SnackBarAction(
+        label: "취소",
+        onPressed: () async {
+          await todoDoc.set(todoData);
+        },
+      ),
+    ));
   }
 
   List<Widget> list = [];
