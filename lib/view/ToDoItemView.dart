@@ -16,7 +16,7 @@ class _ToDoItemViewState extends State<ToDoItemView> {
           color: Colors.yellow, borderRadius: BorderRadius.circular(12)),
       child: Row(children: [
         // check bool TODO: value and onChanged.
-        Checkbox(value: value, onChanged: onChanged),
+        // Checkbox(value: false, onChanged: ),
 
         // task name
         Text("Make tuoorial.")

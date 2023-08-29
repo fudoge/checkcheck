@@ -12,16 +12,16 @@ class TodayPageView extends StatefulWidget {
 
 class _TodayPageViewState extends State<TodayPageView>
     with SingleTickerProviderStateMixin {
-  TabController? controller;
+  TabController? _controller;
   @override
   void initState() {
     super.initState();
-    controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
-    controller!.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -40,7 +40,7 @@ class _TodayPageViewState extends State<TodayPageView>
           ),
           TabBar(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            controller: controller,
+            controller: _controller,
             tabs: [
               Container(
                 height: 40,
@@ -61,7 +61,7 @@ class _TodayPageViewState extends State<TodayPageView>
           ),
           Expanded(
             child: TabBarView(
-              controller: controller,
+              controller: _controller,
               children: [TodayToDoView(), RoutineView()],
             ),
           )
