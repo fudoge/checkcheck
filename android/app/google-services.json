@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "60981380049",
+    "project_id": "checkcheck-e6b75",
+    "storage_bucket": "checkcheck-e6b75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60981380049:android:69651e66552e940c9f16f0",
+        "android_client_info": {
+          "package_name": "com.example.checkcheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60981380049-c5jvko6bjn6pgldg70u999dcrauh62t4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.checkcheck",
+            "certificate_hash": "47a8dccbe928f1bca76ce6d8a2123e73a832c134"
+          }
+        },
+        {
+          "client_id": "60981380049-hjth4jtpuhamr9v0d8gg1ph79v90ktiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_LsTLxu0gzAmbqc_mKXmJvLLnKpkoMZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60981380049-hjth4jtpuhamr9v0d8gg1ph79v90ktiu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "60981380049-ah38pn7sm3rd76k5b9bg02i86rhj15e6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.checkcheck"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
