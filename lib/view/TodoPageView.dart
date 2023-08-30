@@ -38,12 +38,22 @@ class _TodoPageViewState extends State<TodoPageView> {
           .add({
         'title': todoTitle,
         'timestamp': FieldValue.serverTimestamp(),
-        'dueDate': dueDate
+        'dueDate': dueDate,
+        'completed': false
       });
 
       _todoController.clear();
       _dueDateController.clear();
     }
+  }
+
+  Future<void> _toggleTodoCompletion(String todoID, bool completed) async {
+    await _firestore
+        .collection("users")
+        .doc(_currentUser!.uid)
+        .collection("todos")
+        .doc(todoID)
+        .update({'completed': !completed}); // Toggle the completed state
   }
 
   Future<void> _deleteToDo(String todoID) async {
@@ -145,6 +155,7 @@ class _TodoPageViewState extends State<TodoPageView> {
                             as Map<String, dynamic>;
                         final todoTitle = todoData['title'] as String;
                         final dueDate = todoData['dueDate'] as String;
+                        final completed = todoData['completed'] as bool;
                         final todoID = snapshot.data!.docs[index].id;
 
                         return Dismissible(
@@ -159,11 +170,48 @@ class _TodoPageViewState extends State<TodoPageView> {
                             ),
                           ),
                           direction: DismissDirection.endToStart,
+                          confirmDismiss: (direction) async {
+                            final result = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("삭제 확인"),
+                                  content: Text("정말로 삭제하시겠습니까?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: Text("아니오"),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: Text("예"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            return result ?? false;
+                          },
                           onDismissed: (direction) {
                             _deleteToDo(todoID);
                           },
                           child: ListTile(
-                            title: Text(todoTitle),
+                            leading: Checkbox(
+                              value: completed,
+                              onChanged: (value) {
+                                _toggleTodoCompletion(todoID, completed);
+                              },
+                            ),
+                            title: Text(
+                              todoTitle,
+                              style: TextStyle(
+                                  decoration: completed
+                                      ? TextDecoration.lineThrough
+                                      : null),
+                            ),
                             subtitle: Text("기한: $dueDate"),
                           ),
                         );
